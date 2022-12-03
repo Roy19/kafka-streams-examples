@@ -17,7 +17,7 @@ public class WordCountTopicProducer {
 	
 	public void produceRecords(Properties kafkaProperties, String inputTopicName, String outputTopicName) {
 		try (Admin adminClient = Admin.create(kafkaProperties);
-				KafkaProducer<String, String> producer = new KafkaProducer<>(kafkaProperties)) {
+				KafkaProducer<Integer, String> producer = new KafkaProducer<>(kafkaProperties)) {
 			
 			List<NewTopic> topics = List.of(new NewTopic(inputTopicName, 1, (short) 1), 
 					new NewTopic(outputTopicName, 1, (short) 1));
@@ -40,7 +40,8 @@ public class WordCountTopicProducer {
 		
 			for (int i = 0; i < 1000; i++) {
 				String sentenceString = sentenceStrings[(int)(Math.random() * sentenceStrings.length)];
-				producer.send(new ProducerRecord<String, String>(inputTopicName, Integer.toString(i), sentenceString), callback);
+				producer.send(new ProducerRecord<Integer, String>(inputTopicName, 
+				i, sentenceString), callback);
 			}
 		}
 	}

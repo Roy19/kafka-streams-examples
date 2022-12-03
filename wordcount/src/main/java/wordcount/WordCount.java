@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.common.serialization.Serdes.StringSerde;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
@@ -18,7 +18,6 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Materialized;
-import org.apache.kafka.streams.kstream.Produced;
 
 public class WordCount {
 	
@@ -28,14 +27,14 @@ public class WordCount {
 		Properties streamsConfigProperties = new Properties();
 		streamsConfigProperties.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount-example");
 		streamsConfigProperties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-		streamsConfigProperties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, StringSerde.class);
-		streamsConfigProperties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, StringSerde.class);
-		streamsConfigProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		streamsConfigProperties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+		streamsConfigProperties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+		streamsConfigProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
         streamsConfigProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 		
 		StreamsBuilder builder = new StreamsBuilder();
-		KStream<String, String> kStreams = builder.stream("wordcount-input", 
-				Consumed.with(Serdes.String(), Serdes.String()));
+		KStream<Integer, String> kStreams = builder.stream("wordcount-input", 
+				Consumed.with(Serdes.Integer(), Serdes.String()));
 		
 		final Pattern spacesInBetweenPattern = Pattern.compile("\\W+");
 		
@@ -45,9 +44,8 @@ public class WordCount {
 			.count(Materialized.as("CountStore"))
 			.mapValues(value -> Long.toString(value))
 			.toStream()
-			.map((key, value) -> new KeyValue<String, String>((String) key, value))
-			.peek((key, value) -> logger.log(Level.INFO, "Got key: " + key, " , value: " + value))
-			.to("wordcount-output", Produced.with(Serdes.String(), Serdes.String()));
+			.peek((key, value) -> logger.log(Level.INFO, "Got key: " + key + " , value: " + value))
+			.to("wordcount-output");
 		
 		KafkaStreams kafkaStreams = new KafkaStreams(builder.build(), streamsConfigProperties);
 		CountDownLatch latch = new CountDownLatch(1);
