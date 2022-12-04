@@ -62,8 +62,6 @@ public class JsonStreamsTopicProducer {
 				userProfile.region = regions[(int)(Math.random() * regions.length)];
 				userProfile.timestamp = instant.toEpochMilli(); 
 				
-				instant = instant.plus(15L, ChronoUnit.MINUTES);
-				
 				pageView.page = pages[(int)(Math.random() * pages.length)];
 				pageView.user = users[(int)(Math.random() * users.length)];
 				pageView.timestamp = instant.toEpochMilli();
