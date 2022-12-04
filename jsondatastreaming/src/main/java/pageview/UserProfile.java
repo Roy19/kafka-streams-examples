@@ -1,4 +1,4 @@
-package jsonstreams;
+package pageview;
 
 public class UserProfile implements JSONSerdeCompatible {
 	public String region;

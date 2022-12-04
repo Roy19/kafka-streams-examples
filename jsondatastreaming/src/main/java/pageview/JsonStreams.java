@@ -1,4 +1,4 @@
-package jsonstreams;
+package pageview;
 
 import java.time.Duration;
 import java.util.Properties;

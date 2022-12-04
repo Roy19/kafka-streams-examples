@@ -1,4 +1,4 @@
-package jsonstreams;
+package pageview;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
