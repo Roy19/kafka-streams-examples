@@ -42,11 +42,11 @@ public class TopicProducer {
 					new Order(13, 3, "Backcover"), new Order(14, 4, "Charger"));
 			
 			for (User user : users) {
-				userProducer.send(new ProducerRecord<Integer, User>(usersTopic, user.id, user), callback);
+				userProducer.send(new ProducerRecord<Integer, User>(usersTopic, user.getId(), user), callback);
 			}
 			
 			for (Order order : orders) {
-				orderProducer.send(new ProducerRecord<Integer, Order>(ordersTopic, order.orderid, order), callback);
+				orderProducer.send(new ProducerRecord<Integer, Order>(ordersTopic, order.getOrderid(), order), callback);
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Failed to produce messages. Error " + e.getMessage());

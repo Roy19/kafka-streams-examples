@@ -30,7 +30,7 @@ public class JoinsExample {
         KTable<Integer, Order> ordersTable = builder.table("orders", Consumed.with(Serdes.Integer(), new JSONSerde()));
         
         final KTable<Integer, UserOrder> userOrderTable = ordersTable.join(usersTable, Order::getUserid, (order, user) -> {
-        	return new UserOrder(user.id, order.orderid, user.username, order.itemName);
+        	return new UserOrder(user.getId(), order.getOrderid(), user.getUsername(), order.getItemName());
         });
         
         userOrderTable.toStream().to("orders-users", Produced.with(Serdes.Integer(), new JSONSerde()));

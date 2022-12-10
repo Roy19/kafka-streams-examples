@@ -1,24 +1,15 @@
 package com.aritra.kafkastreamswithcdc.joinsexample;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class User implements JSONSerdeCompatible {
-    public Integer id;
-    public String username;
-	
-    public User() {
-    }
-    
-    public User(Integer id, String username) {
-		super();
-		this.id = id;
-		this.username = username;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public String getUsername() {
-		return username;
-	}    
-    
+    private Integer id;
+    private String username;    
 }
