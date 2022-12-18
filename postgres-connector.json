@@ -1,0 +1,14 @@
+{
+    "name": "users-orders-connectors",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "database.hostname": "postgres_db",
+        "database.port": "5432",
+        "database.user": "postgres",
+        "database.password": "postgres",
+        "database.dbname": "app_db",
+        "database.server.name": "postgres_db",
+        "table.whitelist": "public.users,public.orders",
+        "topic.prefix": "db_users_orders"
+    }
+}
