@@ -31,11 +31,13 @@ services:
   postgres_db:
     image: debezium/postgres
     container_name: postgres_db
+    hostname: postgres_db
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=app_db
 
   connect:
     image: quay.io/debezium/connect:2.0
