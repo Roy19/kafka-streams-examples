@@ -43,6 +43,7 @@ services:
       - broker
       - postgres_db
     environment:
+      - BOOTSTRAP_SERVERS=broker:29092
       - GROUP_ID=1
       - CONFIG_STORAGE_TOPIC=my_connect_configs
       - OFFSET_STORAGE_TOPIC=my_connect_offsets
