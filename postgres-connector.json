@@ -9,6 +9,9 @@
         "database.dbname": "app_db",
         "database.server.name": "postgres_db",
         "table.whitelist": "public.users,public.orders",
-        "topic.prefix": "db_users_orders"
+        "topic.prefix": "db_users_orders",
+        "transforms": "unwrap",
+        "transforms.unwrap.type":"io.debezium.transforms.ExtractNewRecordState",
+        "transforms.unwrap.drop.tombstones":"false"
     }
 }
