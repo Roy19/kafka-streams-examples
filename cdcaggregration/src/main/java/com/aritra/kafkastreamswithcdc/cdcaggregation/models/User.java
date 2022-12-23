@@ -1,6 +1,6 @@
 package com.aritra.kafkastreamswithcdc.cdcaggregation.models;
 
-import com.aritra.kafkastreamswithcdc.enums.EventType;
+import com.aritra.kafkastreamswithcdc.cdcaggregation.enums.EventType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
