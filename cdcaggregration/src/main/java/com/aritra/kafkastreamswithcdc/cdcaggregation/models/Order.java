@@ -18,7 +18,7 @@ public class Order {
                 @JsonProperty("id") Integer id,
                 @JsonProperty("user_id") Integer userId,
                 @JsonProperty("item_name") String itemName) {
-        this.eventType = eventType == null ? EventType.DELETE : EventType.UPSERT;
+        this.eventType = eventType == null ? EventType.UPSERT : eventType;
         this.id = id;
         this.userId = userId;
         this.itemName = itemName;

@@ -18,7 +18,7 @@ public class User {
                 @JsonProperty("id") Integer id,
                 @JsonProperty("user_name") String user_name,
                 @JsonProperty("primary_contact_number") String primary_contact_number) {
-        this.eventType = eventType == null ? EventType.DELETE : EventType.UPSERT;
+        this.eventType = eventType == null ? EventType.UPSERT : eventType;
         this.id = id;
         this.user_name = user_name;
         this.primary_contact_number = primary_contact_number;
