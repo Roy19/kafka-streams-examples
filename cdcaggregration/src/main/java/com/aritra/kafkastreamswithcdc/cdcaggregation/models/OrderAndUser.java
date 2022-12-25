@@ -1,20 +1,13 @@
 package com.aritra.kafkastreamswithcdc.cdcaggregation.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@Getter
 public class OrderAndUser {
-    private Order order;
-    private User user;
+    public Order order;
+    public User user;
 
-    @JsonCreator
-    public OrderAndUser(@JsonProperty("order") Order order, 
-                    @JsonProperty("user") User user) {
+    public OrderAndUser(Order order, User user) {
         this.order = order;
         this.user = user;
     }
