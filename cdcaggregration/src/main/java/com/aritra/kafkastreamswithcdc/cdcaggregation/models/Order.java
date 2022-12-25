@@ -1,36 +1,19 @@
 package com.aritra.kafkastreamswithcdc.cdcaggregation.models;
 
-import com.aritra.kafkastreamswithcdc.cdcaggregation.enums.EventType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
-    private EventType eventType;
-    private Integer id;
-    private Integer userId;
-    private String itemName;
-
-    @JsonCreator
-    public Order(@JsonProperty("_eventType") EventType eventType,
-                @JsonProperty("id") Integer id,
-                @JsonProperty("user_id") Integer userId,
-                @JsonProperty("item_name") String itemName) {
-        this.eventType = eventType == null ? EventType.UPSERT : eventType;
-        this.id = id;
-        this.userId = userId;
-        this.itemName = itemName;
-    }
+    public Integer id;
+    public Integer user_id;
+    public String item_name;
 
     @Override
     public String toString() {
         return "Order{" +
-                "eventType=" + eventType +
                 ", id=" + id +
-                ", userId=" + userId +
-                ", itemName='" + itemName + '\'' +
+                ", userId=" + user_id +
+                ", itemName='" + item_name + '\'' +
                 '}';
     }
 }
