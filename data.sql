@@ -1,6 +1,6 @@
 create table users (id int primary key,
 user_name varchar(50) not null,
-primary_contact_number varchar(10) not null)
+primary_contact_number varchar(10) not null);
 
 create table orders (id int primary key,
 user_id int not null,
