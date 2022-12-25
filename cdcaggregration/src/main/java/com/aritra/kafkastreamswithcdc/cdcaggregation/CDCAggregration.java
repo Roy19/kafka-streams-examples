@@ -82,6 +82,8 @@ public class CDCAggregration {
         });
 
         try {
+            // clean up state stores before starting the application
+            kafkaStreams.cleanUp();
             kafkaStreams.start();
             latch.await();
         } catch (InterruptedException e) {
