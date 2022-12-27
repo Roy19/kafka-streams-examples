@@ -4,12 +4,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
+@Getter
+@Setter
 public class UserOrders {
-    public User user;
-    public List<Order> orders = new ArrayList<>();
+    @JsonProperty("user")
+    private User user;
+    @JsonProperty("orders")
+    private List<Order> orders = new ArrayList<>();
 
     public UserOrders(User user, List<Order> orders) {
         this.user = user;
@@ -17,10 +25,10 @@ public class UserOrders {
     }
 
     public UserOrders addOrder(OrderAndUser orderAndUser) {
-        this.user = orderAndUser.user;
-        if (orderAndUser.order != null && orderAndUser.order.id != null && 
-            orderAndUser.order.user_id != null && orderAndUser.order.item_name != null) {
-            this.orders.add(orderAndUser.order);
+        this.user = orderAndUser.getUser();
+        if (orderAndUser.getOrder() != null && orderAndUser.getOrder().getId() != null && 
+            orderAndUser.getOrder().getUserId() != null && orderAndUser.getOrder().getItemName() != null) {
+            this.orders.add(orderAndUser.getOrder());
         }
         return this;
     }
@@ -29,7 +37,7 @@ public class UserOrders {
         Iterator<Order> iterator = this.orders.iterator();
         while (iterator.hasNext()) {
             Order order = iterator.next();
-            if (order.id.equals(orderAndUser.order.id)) {
+            if (order.getId().equals(orderAndUser.getOrder().getId())) {
                 iterator.remove();
             }
         }
