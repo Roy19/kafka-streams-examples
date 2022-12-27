@@ -57,10 +57,10 @@ public class CDCAggregration {
                             Consumed.with(defaultKeySerde, userSerde));
         
         final KTable<Integer, UserOrders> userOrdersTable = ordersTable.join(usersTable, 
-                (order) -> order.user_id, OrderAndUser::new, 
+                (order) -> order.getUserId(), OrderAndUser::new, 
                 Materialized.with(Serdes.Integer(), orderAndUserSerde))
             .groupBy((orderId, orderAndUser) -> 
-                KeyValue.pair(orderAndUser.user.id, orderAndUser),
+                KeyValue.pair(orderAndUser.getUser().getId(), orderAndUser),
                 Grouped.with(Serdes.Integer(), orderAndUserSerde))
             .aggregate(UserOrders::new,
                 (userId, orderAndUser, aggregate) -> aggregate.addOrder(orderAndUser), 

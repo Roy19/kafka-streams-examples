@@ -1,19 +1,28 @@
 package com.aritra.kafkastreamswithcdc.cdcaggregation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 public class User {
-    public Integer id;
-    public String user_name;
-    public String primary_contact_number;
+    @JsonProperty("id")
+    private Integer id;
+    @JsonProperty("user_name")
+    private String userName;
+    @JsonProperty("primary_contact_number")
+    private String primaryContactNumber;
 
     @Override
     public String toString() {
         return "User{" +
                 ", id=" + id +
-                ", user_name='" + user_name + '\'' +
-                ", primary_contact_number='" + primary_contact_number + '\'' +
+                ", user_name='" + userName + '\'' +
+                ", primary_contact_number='" + primaryContactNumber + '\'' +
                 '}';
     }
 }
